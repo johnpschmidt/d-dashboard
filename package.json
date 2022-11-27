@@ -18,6 +18,7 @@
     "Lluis Agusti <hi@llu.lu>"
   ],
   "dependencies": {
+    "bungie-api-ts": "^4.19.0",
     "next": "latest",
     "next-auth": "latest",
     "nodemailer": "^6",
