@@ -56,7 +56,8 @@ export const authOptions: NextAuthOptions = {
       httpOptions: {
         headers: { "X-API-KEY": `${process.env.BUNGIE_API_KEY}` },
       },
-    }),
+      userinfo: "https://www.bungie.net/Platform/User/GetMembershipsForCurrentUser/",
+    })
   ],
   callbacks: {
     async session({ session, token, user }) {
