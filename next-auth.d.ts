@@ -14,3 +14,9 @@ declare module "next-auth"{
  user:{
 error: object}& DefaultSession["user"] }
 }
+
+declare module "next-auth/providers"{
+  interface OAuthConfig{
+    headers: object
+  }
+}
