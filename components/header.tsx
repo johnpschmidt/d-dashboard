@@ -7,23 +7,30 @@ import { useEffect, useState } from "react"
 // component that works on pages which support both client and server side
 // rendering, and avoids any flash incorrect content on initial page load.
 export default function Header() {
-  const { data: session, status } = useSession()
+  // const { data: session, status} = useSession()
+  const {data: session, status} = useSession()
   const loading = status === "loading"
-  const [data, setData] = useState({})
+  const [guardianData, setData] = useState({data:{}, keys:[]})
   const [isLoading, setLoading] = useState(true)
   // the 'main' player view consists of: Username, Emblem, Characters[{
 // class: string,
 // lightlevel: string,
 // maybe(?)last played: string
 // }]
-useEffect(() =>{
-  if(session && isLoading === true){
-    const BungieCharacterData =  fetch('https://localhost:3000/api/bungie/grabuserdata').then((response)=>{ setData(response.json());setLoading(false)});
+
+
+useEffect(()=>{
+  if(session && session.user.error === "RefreshAccessTokenError"){
+    signIn(); 
   }
-  
-})
+},[session])
 
 
+if(status == "authenticated" ){
+  if(isLoading){
+    fetch('https://localhost:3000/api/bungie/grabuserdata').then((response)=>{ return response.json()}).then((data) =>{var keys = Object.keys(data); setData({...data, keys});setLoading(false)});      
+   }
+}
   return (
     <header>
       <noscript>
@@ -79,7 +86,9 @@ useEffect(() =>{
           )}
         </p>
       </div>
+                <div>
 
+                </div>
     </header>
   )
 }
