@@ -28,7 +28,7 @@ useEffect(()=>{
 
 if(status == "authenticated" ){
   if(isLoading){
-    fetch('https://localhost:3000/api/bungie/grabuserdata').then((response)=>{ return response.json()}).then((data) =>{var keys = Object.keys(data); setData({...data, keys});setLoading(false)});      
+    fetch(`${process.env.PAGE_API_URL}/api/bungie/grabuserdata`).then((response)=>{ return response.json()}).then((data) =>{var keys = Object.keys(data); setData({...data, keys});setLoading(false)});      
    }
 }
   return (
